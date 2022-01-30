@@ -1,0 +1,2014 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Ferretly External API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/ApiClient": {
+      "get": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Get information about the API client associated with the API key found in the request header",
+        "description": "Using the API key found in the request header, return information about the API client",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ApiClient/updateWebHook": {
+      "post": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Update the web hook url associated with the API client. This is the URL which will receive callbacks from Ferretly",
+        "requestBody": {
+          "description": "The new URL to use.",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string",
+                "description": "The new URL to use.",
+                "nullable": true
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "description": "The new URL to use.",
+                "nullable": true
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "description": "The new URL to use.",
+                "nullable": true
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "description": "The new URL to use.",
+                "nullable": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ApiClient/refreshApiKey": {
+      "get": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Refresh the API key associated with an API client.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClientWithApiKey"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClientWithApiKey"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClientWithApiKey"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ApiClient/getOrganization": {
+      "get": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Get the Ferretly Data.DTO.Organization related to the API key",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/ApiClient/updateClientSpecificProperties": {
+      "post": {
+        "tags": [
+          "ApiClient"
+        ],
+        "summary": "Update the Data.Models.ExternalAPI.ExternalAPIClient.ClientSpecificProperties associated with the API client.",
+        "requestBody": {
+          "description": "The new value to store as the Data.Models.ExternalAPI.ExternalAPIClient.ClientSpecificProperties",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "string",
+                "description": "The new value to store as the Data.Models.ExternalAPI.ExternalAPIClient.ClientSpecificProperties",
+                "nullable": true
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "string",
+                "description": "The new value to store as the Data.Models.ExternalAPI.ExternalAPIClient.ClientSpecificProperties",
+                "nullable": true
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "string",
+                "description": "The new value to store as the Data.Models.ExternalAPI.ExternalAPIClient.ClientSpecificProperties",
+                "nullable": true
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "string",
+                "description": "The new value to store as the Data.Models.ExternalAPI.ExternalAPIClient.ClientSpecificProperties",
+                "nullable": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiClient"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Health/settings": {
+      "get": {
+        "tags": [
+          "Health"
+        ],
+        "summary": "Basic API health and settings",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSettings"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSettings"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppSettings"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Not logged in",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get a list of all of the subscriber's subjects",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subject"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subject"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Subject"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Create a new subject",
+        "requestBody": {
+          "description": "The new subject",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSubject"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSubject"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSubject"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/NewSubject"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Requested Analyst Support but organization does not have Analyst Support",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get a particular subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subject was not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/getByExternalId/{externalId}": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get a particular subject by external id value",
+        "description": "If there are multiple subjects having the specified externalId value, the \"first\" will be returned",
+        "parameters": [
+          {
+            "name": "externalId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subject"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subject was not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}/screeningstatus": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get status of background screen for the requested subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}/backgroundCheckResults": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get results from most recently-completed background screen for the requested subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckResults"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckResults"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckResults"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/getByExternalId/{externalId}/backgroundCheckResults": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Get results from most recently-completed background screen for the requested subject",
+        "parameters": [
+          {
+            "name": "externalId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "",
+              "nullable": true
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheck"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheck"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheck"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Something was invalid about the request: subject does not have a completed background check; subject currently has background check in-progress",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Subject was not found",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}/initiateBackgroundCheck": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Initiate a background check for the specified subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully attempted to start background check",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BackgroundCheckStatus"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Subject does not exist, is not valid for the API client, already has a background check in progress, or organization does not have enough credits.",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Subjects/{subjectId}/downloadBackgroundReport": {
+      "get": {
+        "tags": [
+          "Subjects"
+        ],
+        "summary": "Download the latest background report for the requested subject",
+        "parameters": [
+          {
+            "name": "subjectId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The subject does not have a current background report",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The subject has a current background report, but it could not be located in Blob Storage",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiClient": {
+        "type": "object",
+        "properties": {
+          "SubscriberId": {
+            "type": "string",
+            "description": "The id of the Ferretly user associated with the API client key",
+            "format": "uuid"
+          },
+          "OrganizationId": {
+            "type": "string",
+            "description": "The id of the Ferretly organization associated with the API client key",
+            "format": "uuid"
+          },
+          "Owner": {
+            "type": "string",
+            "description": "Name of the API client key owner",
+            "nullable": true
+          },
+          "Permissions": {
+            "type": "string",
+            "description": "Comma-separated list of permissions associated with the API client",
+            "nullable": true
+          },
+          "StatusUpdateCallbackUrl": {
+            "type": "string",
+            "description": "Webhook URL",
+            "nullable": true
+          },
+          "ClientSpecificProperties": {
+            "type": "string",
+            "description": "A place to store additional, generic properties about the API Client",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Information about the API client"
+      },
+      "ApiClientWithApiKey": {
+        "type": "object",
+        "properties": {
+          "ApiClient": {
+            "$ref": "#/components/schemas/ApiClient"
+          },
+          "ApiKey": {
+            "type": "string",
+            "description": "The API Key for this client",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Class used when wanting to return an ExternalAPI.Models.ApiClientWithApiKey.ApiClient and its associated <seealso cref=\"P:Data.Models.ExternalAPI.ExternalAPIClient.ApiKey\" />"
+      },
+      "AffiliateInfo": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "OwnerId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "EmailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "type": "string",
+            "nullable": true
+          },
+          "Created": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "Updated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "CompanyName": {
+            "type": "string",
+            "nullable": true
+          },
+          "WebsiteAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "IsWhitelabel": {
+            "type": "boolean"
+          },
+          "LogoUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "CompanyStreetAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "CompanyStreetAddress2": {
+            "type": "string",
+            "nullable": true
+          },
+          "CompanyCity": {
+            "type": "string",
+            "nullable": true
+          },
+          "CompanyPostalCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "CompanyState": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PlanType": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "PaymentMethod": {
+        "enum": [
+          0,
+          1
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "Organization": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "PurchasedAnalystSupport": {
+            "type": "boolean"
+          },
+          "AffiliateId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "Affiliate": {
+            "$ref": "#/components/schemas/AffiliateInfo"
+          },
+          "CreditsAvailable": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "CreditsUsed": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "StripeCustomerId": {
+            "type": "string",
+            "nullable": true
+          },
+          "SocialMediaScraperYears": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "PlanType": {
+            "$ref": "#/components/schemas/PlanType"
+          },
+          "PaymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "IsSubscriptionActive": {
+            "type": "boolean"
+          },
+          "StripeSubscriptionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "StripePlanId": {
+            "type": "string",
+            "nullable": true
+          },
+          "StripePricingId": {
+            "type": "string",
+            "nullable": true
+          },
+          "NumberOfContinuousScreeningSubjectsEnabled": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProblemDetails": {
+        "type": "object",
+        "properties": {
+          "Type": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "Instance": {
+            "type": "string",
+            "nullable": true
+          },
+          "Extensions": {
+            "type": "object",
+            "additionalProperties": {},
+            "nullable": true,
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Platform": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "AppSettings": {
+        "type": "object",
+        "properties": {
+          "StorageAccount": {
+            "type": "string",
+            "nullable": true
+          },
+          "StorageKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "FerretlyAnalystEmailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "SubjectAssignedToYouTemplateId": {
+            "type": "string",
+            "nullable": true
+          },
+          "EmptyProfileImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "SendGridApiKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "ApplicationUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "Platform": {
+            "$ref": "#/components/schemas/Platform"
+          },
+          "IsDevelopmentEnvironment": {
+            "type": "boolean"
+          },
+          "FetcherManagerUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "HandleStatus": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "SubjectHandle": {
+        "type": "object",
+        "properties": {
+          "Platform": {
+            "type": "string",
+            "nullable": true
+          },
+          "Handle": {
+            "type": "string",
+            "nullable": true
+          },
+          "Verified": {
+            "type": "boolean"
+          },
+          "ProfileUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProfilePicUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "Title": {
+            "type": "string",
+            "nullable": true
+          },
+          "Location": {
+            "type": "string",
+            "nullable": true
+          },
+          "Workplace": {
+            "type": "string",
+            "nullable": true
+          },
+          "School": {
+            "type": "string",
+            "nullable": true
+          },
+          "LivesIn": {
+            "type": "string",
+            "nullable": true
+          },
+          "From": {
+            "type": "string",
+            "nullable": true
+          },
+          "FacebookStatus": {
+            "type": "string",
+            "nullable": true
+          },
+          "SocialMediaLinkedAccount": {
+            "type": "string",
+            "nullable": true
+          },
+          "Joined": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "PostCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Followers": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Following": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Bio": {
+            "type": "string",
+            "nullable": true
+          },
+          "Status": {
+            "$ref": "#/components/schemas/HandleStatus"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubjectStatus": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "RunStatusEnum": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "RiskMakeup": {
+        "type": "object",
+        "properties": {
+          "RiskName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ChannelVolume": {
+        "type": "object",
+        "properties": {
+          "ChannelName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Count": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RiskType": {
+        "enum": [
+          0,
+          1,
+          2
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "SubscriberRiskCategory": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "IsActive": {
+            "type": "boolean"
+          },
+          "SortOrder": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "RiskType": {
+            "$ref": "#/components/schemas/RiskType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "KeywordType": {
+        "enum": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "Keyword": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "IncludeInSearch": {
+            "type": "boolean"
+          },
+          "KeywordType": {
+            "$ref": "#/components/schemas/KeywordType"
+          }
+        },
+        "additionalProperties": false
+      },
+      "KeyWords": {
+        "type": "object",
+        "properties": {
+          "IsActive": {
+            "type": "boolean"
+          },
+          "Keywords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Keyword"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GeneralSettings": {
+        "type": "object",
+        "properties": {
+          "IsEmailMeSet": {
+            "type": "boolean"
+          },
+          "NotificationEmailAddress": {
+            "type": "string",
+            "nullable": true
+          },
+          "IncludeFlaggedPosts": {
+            "type": "boolean"
+          },
+          "IncludeNegativePosts": {
+            "type": "boolean"
+          },
+          "IncludePositionPosts": {
+            "type": "boolean"
+          },
+          "HideLogosInReports": {
+            "type": "boolean"
+          },
+          "IncludeHelpPagesOnBackgroundReport": {
+            "type": "boolean"
+          },
+          "IncludeHyperlinksInReports": {
+            "type": "boolean"
+          },
+          "IncludeWebNewsPosts": {
+            "type": "boolean"
+          },
+          "IncludeFCRAWarning": {
+            "type": "boolean"
+          },
+          "AnonymizeProfilePictureInReports": {
+            "type": "boolean"
+          },
+          "IncludePostInsightsInReports": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SubscriberPreferences": {
+        "type": "object",
+        "properties": {
+          "ProfileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "RiskCategories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubscriberRiskCategory"
+            },
+            "nullable": true
+          },
+          "KeyWords": {
+            "$ref": "#/components/schemas/KeyWords"
+          },
+          "GeneralSettings": {
+            "$ref": "#/components/schemas/GeneralSettings"
+          },
+          "ShowArchived": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ContinuousScreeningInterval": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "Subject": {
+        "type": "object",
+        "properties": {
+          "PartitionKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "RowKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "Timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ETag": {
+            "type": "string",
+            "nullable": true
+          },
+          "Id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "SubscriberId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "OwnerFirstName": {
+            "type": "string",
+            "nullable": true
+          },
+          "OwnerLastName": {
+            "type": "string",
+            "nullable": true
+          },
+          "OwnerEmail": {
+            "type": "string",
+            "nullable": true
+          },
+          "OrganizationId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "Handles": {
+            "type": "string",
+            "nullable": true
+          },
+          "HandleList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubjectHandle"
+            },
+            "nullable": true
+          },
+          "MostRecentRunId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "DateAdded": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "ProfileImageUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "LastRunDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "Score": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Status": {
+            "$ref": "#/components/schemas/SubjectStatus"
+          },
+          "LastRunStatus": {
+            "$ref": "#/components/schemas/RunStatusEnum"
+          },
+          "LastRunStatusMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "LastRunFinishedScraping": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "CurrentRunStarted": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "CurrentRunStatus": {
+            "$ref": "#/components/schemas/RunStatusEnum"
+          },
+          "CurrentRunId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "BackgroundReportFileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "Address": {
+            "type": "string",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          },
+          "Country": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "HighSchool": {
+            "type": "string",
+            "nullable": true
+          },
+          "College": {
+            "type": "string",
+            "nullable": true
+          },
+          "Company": {
+            "type": "string",
+            "nullable": true
+          },
+          "PhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "TwitterUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "FacebookUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "InstagramUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "LinkedInUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "RiskMakeups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskMakeup"
+            },
+            "nullable": true
+          },
+          "ChannelVolumes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChannelVolume"
+            },
+            "nullable": true
+          },
+          "IsRedressed": {
+            "type": "boolean"
+          },
+          "TotalPosts": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "FlaggedPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "TotalSentiment": {
+            "type": "number",
+            "format": "double"
+          },
+          "WebSearchPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "HasAvailablePosts": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "IsBackgroundCheckInProgress": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "IsCurrentRunTimedOut": {
+            "type": "boolean",
+            "readOnly": true
+          },
+          "IsEnabledForContinuousScreening": {
+            "type": "boolean"
+          },
+          "SubscriberEnablingContinuousScreening": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "ContinuousScreeningPreferences": {
+            "$ref": "#/components/schemas/SubscriberPreferences"
+          },
+          "ContinuousScreeningInterval": {
+            "$ref": "#/components/schemas/ContinuousScreeningInterval"
+          },
+          "PreviousRunDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "NextScreeningDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "OriginalScreeningDate": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "IsAssignedToFerretlyAnalyst": {
+            "type": "boolean"
+          },
+          "AgeOrDateOfBirth": {
+            "type": "string",
+            "nullable": true
+          },
+          "IsExternalApiSubject": {
+            "type": "boolean"
+          },
+          "ExternalSystemId": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EditSubject": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProfilePicUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "Address": {
+            "type": "string",
+            "nullable": true
+          },
+          "City": {
+            "type": "string",
+            "nullable": true
+          },
+          "State": {
+            "type": "string",
+            "nullable": true
+          },
+          "Email": {
+            "type": "string",
+            "nullable": true
+          },
+          "HighSchool": {
+            "type": "string",
+            "nullable": true
+          },
+          "College": {
+            "type": "string",
+            "nullable": true
+          },
+          "Company": {
+            "type": "string",
+            "nullable": true
+          },
+          "PhoneNumber": {
+            "type": "string",
+            "nullable": true
+          },
+          "TwitterUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "FacebookUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "InstagramUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "LinkedInUrl": {
+            "type": "string",
+            "nullable": true
+          },
+          "Tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "Country": {
+            "type": "string",
+            "nullable": true
+          },
+          "AgeOrDateOfBirth": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "NewSubject": {
+        "type": "object",
+        "properties": {
+          "SubjectData": {
+            "$ref": "#/components/schemas/EditSubject"
+          },
+          "Handles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubjectHandle"
+            },
+            "description": "List of Data.Models.SubjectHandle instances to add to the subject",
+            "nullable": true
+          },
+          "AssignToFerretlyAnalyst": {
+            "type": "boolean"
+          },
+          "ExternalSystemId": {
+            "type": "string",
+            "description": "An identifier for the subject as it's known to the external system",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BackgroundCheckStatus": {
+        "enum": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "type": "integer",
+        "format": "int32"
+      },
+      "BackgroundCheckResults": {
+        "type": "object",
+        "properties": {
+          "Initiated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "SubjectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "SubjectExternalSystemId": {
+            "type": "string",
+            "nullable": true
+          },
+          "RiskMakeups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskMakeup"
+            },
+            "description": "Risk makeups: count of posts flagged for each risk",
+            "nullable": true
+          },
+          "ChannelVolumes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChannelVolume"
+            },
+            "nullable": true
+          },
+          "FlaggedPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "TotalPosts": {
+            "type": "integer",
+            "format": "int32",
+            "readOnly": true
+          },
+          "WebSearchPosts": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "Score": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "TotalSentiment": {
+            "type": "number",
+            "format": "double"
+          },
+          "FinishedScraping": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "RunStatus": {
+            "$ref": "#/components/schemas/RunStatusEnum"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ScoreData": {
+        "type": "object",
+        "properties": {
+          "RiskMakeups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskMakeup"
+            },
+            "nullable": true
+          },
+          "FlaggedPosts": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Score": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "TotalSentiment": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ChannelVolumes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChannelVolume"
+            },
+            "nullable": true
+          },
+          "AverageSentiment": {
+            "type": "number",
+            "format": "double",
+            "readOnly": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "BackgroundCheck": {
+        "type": "object",
+        "properties": {
+          "PartitionKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "RowKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "Timestamp": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "ETag": {
+            "type": "string",
+            "nullable": true
+          },
+          "Initiated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "SubjectId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "SubscriberId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "InitiatedBy": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "Preferences": {
+            "$ref": "#/components/schemas/SubscriberPreferences"
+          },
+          "DurableFunctionInstanceId": {
+            "type": "string",
+            "nullable": true
+          },
+          "RiskMakeups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RiskMakeup"
+            },
+            "nullable": true
+          },
+          "ChannelVolumes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChannelVolume"
+            },
+            "nullable": true
+          },
+          "FlaggedPosts": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "Score": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "TotalSentiment": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "ContinuationOfRunId": {
+            "type": "string",
+            "format": "uuid",
+            "nullable": true
+          },
+          "IsDevTestingBackgroundCheck": {
+            "type": "boolean"
+          },
+          "FinishedScraping": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "RunStatus": {
+            "$ref": "#/components/schemas/RunStatusEnum"
+          },
+          "PreviousScoreData": {
+            "$ref": "#/components/schemas/ScoreData"
+          },
+          "IsCreditAlreadyRefunded": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "ApiClient",
+      "description": "Endpoints for discovering information about and managing ExternalAPI.Models.ApiClient instances."
+    },
+    {
+      "name": "Subjects",
+      "description": "Endpoints for creating, discovering, and managing Ferretly subject records associated with an API client"
+    }
+  ]
+}

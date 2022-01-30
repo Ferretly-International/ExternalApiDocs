@@ -1,0 +1,741 @@
+{
+    "info": {
+        "_postman_id": "9d5543a4-164c-462e-a438-d4b544cc48fc",
+        "name": "Ferretly External API",
+        "description": "## Authentication and Authorization\n\nAuthentication is handled using API Key authentication via an `X-Api-Key` request header. The API key to use will be provided by Ferretly. \n\nEach API key value is associated with a particular Organization and a particular Subscriber within that Organization. The Subscriber object represents a user who can log into the Ferretly application, and by whom subjects are \"owned\" when created via the API.\n\n## Adding a Subject\n\n![](https://www.websequencediagrams.com/files/render?link=jJ1Sl1sPcpkignyxMM6SQ3BsqtJlweVFwBI4G2E0xc4WnD3OEIHeX41NoCjOV2VW)\n\nRelevant endpoints:\n\n[Create New Subject](https://documenter.getpostman.com/view/13665914/TVmTca9e#48c9d8d2-b25b-4fc8-ad38-d14fefd64a47)\n  \n[Initiate Background Check](https://documenter.getpostman.com/view/13665914/TVmTca9e#0c7fde54-dc9d-4fa0-a108-edeea4ec23d5)\n\n## Background Check Status Webhook\n\nWhen a subject that was added via the API has a background check in-progress,your API can be notified of updates to the progress of the background check. These notifications occur with an HTTP `GET` request made to the `statusUpdateCallbackUrl` value associated with your API key.\n\nThe request will include three query parameters:\n\n* `subjectId` - The Ferretly-assigned id for the subject (as a Guid value)\n* `status` - the current status (enum values below)\n* `externalSystemId` - when a subject is created via the API, you can send a value that identifies the subject in your system\n\n```\n    public enum BackgroundCheckStatus\n    {\n        None,\n        InQueue,\n        InProgress,\n        Redressing,\n        Complete,\n        Error\n    }\n```",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Subject Management",
+            "item": [
+                {
+                    "name": "Create New Subject",
+                    "id": "48c9d8d2-b25b-4fc8-ad38-d14fefd64a47",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "auth": {
+                            "type": "apikey",
+                            "apikey": [
+                                {
+                                    "key": "value",
+                                    "value": "{{APIKey}}",
+                                    "type": "string"
+                                },
+                                {
+                                    "key": "key",
+                                    "value": "X-Api-Key",
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\r\n  \"subjectData\": {\r\n    \"name\": \"Throckmorton Scribblemonger\",\r\n    \"profilePicUrl\": \"https://static.wixstatic.com/media/7b442b_3ac76a7d6b3944baafefef838a04ddbe~mv2.jpg\"\r\n  },\r\n  \"handles\": [\r\n    {\r\n        \"platform\":\"Twitter\",\r\n        \"handle\":\"realThrockMorton\",\r\n        \"profilePicUrl\":\"https://static.wixstatic.com/media/7b442b_3ac76a7d6b3944baafefef838a04ddbe~mv2.jpg\",\r\n        \"title\":\"Throckmorton Scribblemonger\",\r\n        \"bio\":\"Sample subject to show the power of Ferretly\"\r\n    },\r\n    {\r\n        \"platform\":\"Instagram\",\r\n        \"handle\":\"realThrockMorton\",\r\n        \"profilePicUrl\":\"https://static.wixstatic.com/media/7b442b_3ac76a7d6b3944baafefef838a04ddbe~mv2.jpg\",\r\n        \"title\":\"Throckmorton Scribblemonger\",\r\n        \"bio\":\"I'm a fictitious character meant to demonstrate how Ferretly can mitigate employment risk.\"\r\n    }\r\n    ],\r\n  \"assignToFerretlyAnalyst\": false,\r\n  \"externalSystemId\": \"Subject1234\"\r\n}",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{URL}}/Subjects",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "Subjects"
+                            ]
+                        },
+                        "description": "Creates a new subject. The full `Subject` model (only `Name` is required):\n\n```\n{\n  \"SubjectData\": {\n    \"Name\": \"string\",\n    \"ProfilePicUrl\": \"string\",  // URL of the subject's profile picture\n    \"Address\": \"string\",\n    \"City\": \"string\",\n    \"State\": \"string\",\n    \"Email\": \"string\",\n    \"HighSchool\": \"string\",\n    \"College\": \"string\",\n    \"Company\": \"string\",\n    \"Phone\": \"string\",\n    \"TwitterUrl\": \"string\",      // URL of the subject's Twitter profile\n    \"FacebookUrl\": \"string\",     // URL of the subject's Facebook profile\n    \"InstagramUrl\": \"string\",    // URL of the subject's Instagram profile\n    \"LinkedInUrl\": \"string\",     // URL of the subject's LinkedIn profile\n    \"TikTokUrl\": \"string\",       // URL of the subject's TikTok profile\n    \"Tags\": [\n      \"string\"\n    ],\n    \"Country\": \"string\",\n    \"AgeOrDateOfBirth\": \"string\"\n  },\n  \"Handles\": [    // specify information about individual social media profiles\n    {\n      \"Platform\": \"string\",\n      \"Handle\": \"string\",\n      \"Verified\": true,\n      \"ProfileUrl\": \"string\",\n      \"ProfilePicUrl\": \"string\",\n      \"Title\": \"string\",\n      \"Location\": \"string\",\n      \"Workplace\": \"string\",\n      \"School\": \"string\",\n      \"LivesIn\": \"string\",\n      \"From\": \"string\",\n      \"FacebookStatus\": \"string\",\n      \"SocialMediaLinkedAccount\": \"string\",\n      \"Joined\": \"2021-04-20T00:12:29.299Z\",\n      \"PostCount\": 0,\n      \"Followers\": 0,\n      \"Following\": 0,\n      \"Bio\": \"string\",\n      \"Status\": 0\n    }\n  ],\n  \"AssignToFerretlyAnalyst\": true,\n  \"ExternalSystemId\": \"string\",\n  \"IsDebug\": true\n}\n```"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Subjects",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "b016ecc9-f96d-4a90-81f5-c390f6ad5915",
+                                "exec": [
+                                    "var jsonData = JSON.parse(responseBody);\r",
+                                    "if(jsonData.length > 0)\r",
+                                    "{\r",
+                                    "    postman.setEnvironmentVariable(\"subjectId\", jsonData[0].id);\r",
+                                    "}"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "id": "fa46881b-0128-4a12-bba1-4cb1bac10b5d",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/Subjects",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "Subjects"
+                            ]
+                        },
+                        "description": "Get all subjects associated with your API key"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Subject by SubjectId",
+                    "id": "f5303632-b9a9-4028-87f6-d976c4c94b36",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/Subjects/{{subjectId}}",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "Subjects",
+                                "{{subjectId}}"
+                            ]
+                        },
+                        "description": "Retrieve a `Subject` using the Ferretly ID value of the subject."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Subject by ExternalId",
+                    "id": "8a5de41f-c422-44c0-b345-e08b520f363d",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/Subjects/getByExternalId/{{externalId}}",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "Subjects",
+                                "getByExternalId",
+                                "{{externalId}}"
+                            ]
+                        },
+                        "description": "Fetches a particular subject using the `ExternalId` property value. This value would have been passed to the [subject controller's `POST` method](https://documenter.getpostman.com/view/13665914/TVmTca9e#48c9d8d2-b25b-4fc8-ad38-d14fefd64a47) when the subject was created."
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Initiate Background Check",
+                    "id": "0c7fde54-dc9d-4fa0-a108-edeea4ec23d5",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/Subjects/{{subjectId}}/initiateBackgroundCheck",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "Subjects",
+                                "{{subjectId}}",
+                                "initiateBackgroundCheck"
+                            ]
+                        },
+                        "description": "Initiate a new background check for the specified subject.\r\n\r\nWill return `BadRequest` in the following situations:\r\n\r\n* The subject is enabled for continuous screening\r\n* The subject already has a background check in-progress\r\n* The organization does not have enough available credits purchased\r\n\r\nIf successful, will return `Ok(\"InQueue\")`. Otherwise, will return `Ok(\"Error\")`"
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Get Subject Background Check Status",
+                    "id": "6ef8aa32-53d4-4a2c-8e41-d18e7a4e1b5b",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/Subjects/{{subjectId}}/screeningstatus",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "Subjects",
+                                "{{subjectId}}",
+                                "screeningstatus"
+                            ]
+                        },
+                        "description": "Fetches the status of the subject's most-recent background check.\r\n\r\nPotential values:\r\n```\r\n    public enum BackgroundCheckStatus\r\n    {\r\n        None,\r\n        InQueue,\r\n        InProgress,\r\n        Redressing,\r\n        Complete,\r\n        Error\r\n    }\r\n```"
+                    },
+                    "response": [
+                        {
+                            "id": "d9934840-b3ee-4f6e-bd77-c6d1c1c5660b",
+                            "name": "Get Subject Background Check Status",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{URL}}/Subjects/{{subjectId}}/screeningstatus",
+                                    "host": [
+                                        "{{URL}}"
+                                    ],
+                                    "path": [
+                                        "Subjects",
+                                        "{{subjectId}}",
+                                        "screeningstatus"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json; charset=utf-8"
+                                },
+                                {
+                                    "key": "Server",
+                                    "value": "Microsoft-IIS/10.0"
+                                },
+                                {
+                                    "key": "Request-Context",
+                                    "value": "appId=cid-v1:c4bdb124-28a7-4943-b58a-295fcd72d74c"
+                                },
+                                {
+                                    "key": "X-Powered-By",
+                                    "value": "ASP.NET"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Thu, 19 Nov 2020 00:40:43 GMT"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "\"Complete\""
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Background Check Results",
+                    "id": "50521718-abef-43e6-b174-359870322a64",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/Subjects/{{subjectId}}/backgroundCheckResults",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "Subjects",
+                                "{{subjectId}}",
+                                "backgroundCheckResults"
+                            ]
+                        },
+                        "description": "For a particular subject, get the results of the most-recently-completed background check.\r\n\r\nWill return BadRequest if the subject has no completed background checks or currently has a background check in-progress.\r\n\r\n"
+                    },
+                    "response": [
+                        {
+                            "id": "9440b658-1400-471e-af7d-1822e51ee027",
+                            "name": "Get Background Check Results",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{URL}}/Subjects/{{subjectId}}/backgroundCheckResults",
+                                    "host": [
+                                        "{{URL}}"
+                                    ],
+                                    "path": [
+                                        "Subjects",
+                                        "{{subjectId}}",
+                                        "backgroundCheckResults"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json; charset=utf-8"
+                                },
+                                {
+                                    "key": "Server",
+                                    "value": "Microsoft-IIS/10.0"
+                                },
+                                {
+                                    "key": "X-Powered-By",
+                                    "value": "ASP.NET"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Sat, 12 Dec 2020 17:50:50 GMT"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\n    \"initiated\": \"2020-11-24T00:51:58.634Z\",\n    \"subjectId\": \"12367a18-2045-48f0-93f6-31aec3ce4eb1\",\n    \"subjectExternalSystemId\": \"\",\n    \"riskMakeups\": [\n        {\n            \"riskName\": \"Political Speech\",\n            \"count\": 51\n        },\n        {\n            \"riskName\": \"Hate Speech\",\n            \"count\": 0\n        },\n        {\n            \"riskName\": \"Drug-related Images\",\n            \"count\": 0\n        },\n        {\n            \"riskName\": \"Explicit/Racy Images\",\n            \"count\": 0\n        },\n        {\n            \"riskName\": \"Violent Images\",\n            \"count\": 0\n        },\n        {\n            \"riskName\": \"Insults and Bullying\",\n            \"count\": 8\n        },\n        {\n            \"riskName\": \"Narcotics\",\n            \"count\": 0\n        },\n        {\n            \"riskName\": \"Obscene Language\",\n            \"count\": 24\n        },\n        {\n            \"riskName\": \"Self-Harm\",\n            \"count\": 0\n        },\n        {\n            \"riskName\": \"Toxic Language\",\n            \"count\": 1\n        },\n        {\n            \"riskName\": \"Threat of Violence\",\n            \"count\": 0\n        },\n        {\n            \"riskName\": \"Keywords\",\n            \"count\": 30\n        }\n    ],\n    \"channelVolumes\": [\n        {\n            \"channelName\": \"Facebook\",\n            \"count\": 0\n        },\n        {\n            \"channelName\": \"Twitter\",\n            \"count\": 2226\n        },\n        {\n            \"channelName\": \"Instagram\",\n            \"count\": 0\n        },\n        {\n            \"channelName\": \"LinkedIn\",\n            \"count\": 0\n        }\n    ],\n    \"flaggedPosts\": 84,\n    \"totalPosts\": 2226,\n    \"webSearchPosts\": 20,\n    \"score\": 207,\n    \"totalSentiment\": 78.3589,\n    \"finishedScraping\": \"2020-11-24T00:59:55.5572882Z\",\n    \"runStatus\": \"RunCompleted\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get Background Check Results By Subject's External ID",
+                    "id": "91abbfd3-b739-48c1-810d-8bf1526bd9e4",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/Subjects/getByExternalId/{{externalSystemId}}/backgroundCheckResults",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "Subjects",
+                                "getByExternalId",
+                                "{{externalSystemId}}",
+                                "backgroundCheckResults"
+                            ]
+                        },
+                        "description": "Get the background check results for the subject specified by the `externalSystemId` value."
+                    },
+                    "response": [
+                        {
+                            "id": "6b9f017e-cc80-4349-a948-e5418b4f0048",
+                            "name": "Get Background Check Results By Subject's External ID",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{URL}}/Subjects/getByExternalId/{{externalSystemId}}/backgroundCheckResults",
+                                    "host": [
+                                        "{{URL}}"
+                                    ],
+                                    "path": [
+                                        "Subjects",
+                                        "getByExternalId",
+                                        "{{externalSystemId}}",
+                                        "backgroundCheckResults"
+                                    ]
+                                }
+                            },
+                            "status": "Not Found",
+                            "code": 404,
+                            "_postman_previewlanguage": "plain",
+                            "header": [
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "text/plain; charset=utf-8"
+                                },
+                                {
+                                    "key": "Server",
+                                    "value": "Microsoft-IIS/10.0"
+                                },
+                                {
+                                    "key": "X-Powered-By",
+                                    "value": "ASP.NET"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Tue, 20 Apr 2021 00:44:01 GMT"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\r\n    \"initiated\": \"2020-11-24T00:51:58.634Z\",\r\n    \"subjectId\": \"12367a18-2045-48f0-93f6-31aec3ce4eb1\",\r\n    \"subjectExternalSystemId\": \"subjectExternalSystemId123\",\r\n    \"riskMakeups\": [\r\n        {\r\n            \"riskName\": \"Political Speech\",\r\n            \"count\": 51\r\n        },\r\n        {\r\n            \"riskName\": \"Hate Speech\",\r\n            \"count\": 0\r\n        },\r\n        {\r\n            \"riskName\": \"Drug-related Images\",\r\n            \"count\": 0\r\n        },\r\n        {\r\n            \"riskName\": \"Explicit/Racy Images\",\r\n            \"count\": 0\r\n        },\r\n        {\r\n            \"riskName\": \"Violent Images\",\r\n            \"count\": 0\r\n        },\r\n        {\r\n            \"riskName\": \"Insults and Bullying\",\r\n            \"count\": 8\r\n        },\r\n        {\r\n            \"riskName\": \"Narcotics\",\r\n            \"count\": 0\r\n        },\r\n        {\r\n            \"riskName\": \"Obscene Language\",\r\n            \"count\": 24\r\n        },\r\n        {\r\n            \"riskName\": \"Self-Harm\",\r\n            \"count\": 0\r\n        },\r\n        {\r\n            \"riskName\": \"Toxic Language\",\r\n            \"count\": 1\r\n        },\r\n        {\r\n            \"riskName\": \"Threat of Violence\",\r\n            \"count\": 0\r\n        },\r\n        {\r\n            \"riskName\": \"Keywords\",\r\n            \"count\": 30\r\n        }\r\n    ],\r\n    \"channelVolumes\": [\r\n        {\r\n            \"channelName\": \"Facebook\",\r\n            \"count\": 0\r\n        },\r\n        {\r\n            \"channelName\": \"Twitter\",\r\n            \"count\": 2226\r\n        },\r\n        {\r\n            \"channelName\": \"Instagram\",\r\n            \"count\": 0\r\n        },\r\n        {\r\n            \"channelName\": \"LinkedIn\",\r\n            \"count\": 0\r\n        }\r\n    ],\r\n    \"flaggedPosts\": 84,\r\n    \"totalPosts\": 2226,\r\n    \"webSearchPosts\": 20,\r\n    \"score\": 207,\r\n    \"totalSentiment\": 78.3589,\r\n    \"finishedScraping\": \"2020-11-24T00:59:55.5572882Z\",\r\n    \"runStatus\": \"RunCompleted\"\r\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Download Background Report By SubjectId",
+                    "id": "ed020620-e801-43a5-8170-486eac2be2ab",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/Subjects/{{subjectId}}/downloadBackgroundReport",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "Subjects",
+                                "{{subjectId}}",
+                                "downloadBackgroundReport"
+                            ]
+                        },
+                        "description": "Get the PDF file representing the background report for the subject.\n\nWill return `NotFound` if the subject specified does not exist. Will return `BadRequest` if the subject does not have a completed background check."
+                    },
+                    "response": []
+                }
+            ],
+            "id": "3f820ccf-9ccd-45b1-9900-36667b2e50e8",
+            "description": "Endpoints used to add, discover, and begin background checks for the organization's subjects.",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "id": "581ef200-8ff8-46b6-a590-33b7e712b79b",
+                        "type": "text/javascript",
+                        "exec": [
+                            ""
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "9238e051-d705-44b0-923d-3371de38af0c",
+                        "type": "text/javascript",
+                        "exec": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "API Client Management",
+            "item": [
+                {
+                    "name": "Get API Client Info",
+                    "id": "92b9eb94-97a0-4e5a-8d7a-6d6c50f853d6",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/ApiClient",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "ApiClient"
+                            ]
+                        },
+                        "description": "Get information about your API key\r\n\r\n| Property | Description |\r\n| --- | --- |\r\n| subscriberId | The id of the Ferretly user associated with the API key\r\n| organizationId | The id of the Ferretly organization associated with the API key |\r\n| owner | A friendly name for the owner of the API key |\r\n| permissions | A comma-separated list of permissions associated with the API key |\r\n| statusUpdateCallbackUrl | The URL of a webhook which will be called when a subject's background check progress changes |"
+                    },
+                    "response": [
+                        {
+                            "id": "27d6e2cf-961b-4236-b5bd-fc95dca7a19a",
+                            "name": "Get API Client Info",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{URL}}/ApiClient",
+                                    "host": [
+                                        "{{URL}}"
+                                    ],
+                                    "path": [
+                                        "ApiClient"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json; charset=utf-8"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\n    \"subscriberId\": \"3633063d-d396-4c0c-ae8c-c850eb5a3df9\",\n    \"organizationId\": \"6cca33ad-7c3e-4177-8d46-9367b6b20a65\",\n    \"owner\": \"Ferretly\",\n    \"permissions\": \"ManageSubjects\",\n    \"statusUpdateCallbackUrl\": \"https://webook.example.com/status\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Get API Client Organization",
+                    "id": "63694c10-e8af-4cd9-9a45-5d2190386a0f",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/ApiClient/getOrganization",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "ApiClient",
+                                "getOrganization"
+                            ]
+                        },
+                        "description": "Gets the Ferretly Organization associated with the API key"
+                    },
+                    "response": [
+                        {
+                            "id": "e677ce79-7cf0-406d-8ea4-2df10ae10af6",
+                            "name": "Get API Client Organization",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{URL}}/ApiClient/getOrganization",
+                                    "host": [
+                                        "{{URL}}"
+                                    ],
+                                    "path": [
+                                        "ApiClient",
+                                        "getOrganization"
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "_postman_previewlanguage": "json",
+                            "header": [
+                                {
+                                    "key": "Transfer-Encoding",
+                                    "value": "chunked"
+                                },
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json; charset=utf-8"
+                                },
+                                {
+                                    "key": "Server",
+                                    "value": "Microsoft-IIS/10.0"
+                                },
+                                {
+                                    "key": "X-Powered-By",
+                                    "value": "ASP.NET"
+                                },
+                                {
+                                    "key": "Date",
+                                    "value": "Sat, 12 Dec 2020 18:27:47 GMT"
+                                }
+                            ],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\n    \"id\": \"563e7671-25da-49ca-82c6-88b28a7fd871\",\n    \"name\": \"Ferretly International\",\n    \"purchasedAnalystSupport\": true,\n    \"affiliate_guid\": \"bdf770a2-65dd-42b3-98a7-439fd17fbf05\",\n    \"affiliate\": {\n        \"_id\": \"159c246c-2eda-4595-915c-533a5df5913d\",\n        \"_owner\": \"bdf770a2-65dd-42b3-98a7-439fd17fbf05\",\n        \"email\": \"info@ferretly.com\",\n        \"status\": \"Reseller\",\n        \"_createdDate\": \"2020-11-04T12:47:11.605Z\",\n        \"_updatedDate\": \"2020-11-04T12:52:14.52Z\",\n        \"companyName\": \"Ferretly International\",\n        \"websiteAddress\": \"www.ferretly.com\",\n        \"whitelabel\": true,\n        \"logo\": \"https://www.ferretly.com/logo.png\",\n        \"companyAddress\": null,\n        \"companyAddress2\": null,\n        \"companyCity\": null,\n        \"companyPostalCode\": null,\n        \"companyState\": null\n    },\n    \"credits_available\": 78,\n    \"credits_used\": 107,\n    \"stripe_customerId\": \"\",\n    \"socialMediaScraperYears\": 7,\n    \"planType\": \"Enterprise\",\n    \"paymentMethod\": \"InApp\",\n    \"isSubscriptionActive\": true,\n    \"stripeSubscriptionId\": \"\",\n    \"stripePlanId\": \"\",\n    \"stripePricingId\": \"\"\n}"
+                        }
+                    ]
+                },
+                {
+                    "name": "Refresh/Replace API Key",
+                    "event": [
+                        {
+                            "listen": "test",
+                            "script": {
+                                "id": "6a44f7c0-be2f-45b9-8e97-eade6e29da29",
+                                "exec": [
+                                    "var jsonData = JSON.parse(responseBody);\r",
+                                    "postman.setEnvironmentVariable(\"APIKey\", jsonData.apiKey);"
+                                ],
+                                "type": "text/javascript"
+                            }
+                        }
+                    ],
+                    "id": "951452fc-87f7-498a-a247-d10dd88f8c5a",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                            "raw": "{{URL}}/ApiClient/refreshApiKey",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "ApiClient",
+                                "refreshApiKey"
+                            ]
+                        },
+                        "description": "Recreate your API key. Returns the new key along with your API client info."
+                    },
+                    "response": [
+                        {
+                            "id": "d59e5bdb-4038-4473-9620-a0f7f72abc39",
+                            "name": "Refresh/Replace API Key",
+                            "originalRequest": {
+                                "method": "GET",
+                                "header": [],
+                                "url": {
+                                    "raw": "{{URL}}/ApiClient/refreshApiKey",
+                                    "host": [
+                                        "{{URL}}"
+                                    ],
+                                    "path": [
+                                        "ApiClient",
+                                        "refreshApiKey"
+                                    ]
+                                }
+                            },
+                            "_postman_previewlanguage": "Text",
+                            "header": [],
+                            "cookie": [],
+                            "responseTime": null,
+                            "body": "{\r\n  \"apiClient\": {\r\n    \"subscriberId\": \"3633063d-d396-4c0c-ae8c-c850eb5a3df9\",\r\n    \"organizationId\": \"6cca33ad-7c3e-4177-8d46-9367b6b20a65\",\r\n    \"owner\": \"Craig\",\r\n    \"permissions\": \"ManageSubjects\",\r\n    \"statusUpdateCallbackUrl\": \"https://webook.example.com/status\"\r\n},\r\n  \"apiKey\": \"Your_new_API_key\"\r\n}\r\n"
+                        }
+                    ]
+                },
+                {
+                    "name": "Update WebHook",
+                    "id": "735bbaa3-8fcb-4b41-b456-3b9cbd5410fa",
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    },
+                    "request": {
+                        "method": "POST",
+                        "header": [],
+                        "body": {
+                            "mode": "raw",
+                            "raw": " \"https://example.net/api/ExternalApiWebhookTester\"\r\n",
+                            "options": {
+                                "raw": {
+                                    "language": "json"
+                                }
+                            }
+                        },
+                        "url": {
+                            "raw": "{{URL}}/ApiClient/updateWebHook",
+                            "host": [
+                                "{{URL}}"
+                            ],
+                            "path": [
+                                "ApiClient",
+                                "updateWebHook"
+                            ]
+                        },
+                        "description": "Update the web hook (callback) URL associated with your API client. This URL will be used to notify your system of changes to the status of a subject's in-progress background check. "
+                    },
+                    "response": []
+                }
+            ],
+            "id": "c16216fd-1a9c-4ae6-9651-d04e6cd669cc",
+            "description": "Endpoints to retrieve and update information about your API client.",
+            "event": [
+                {
+                    "listen": "prerequest",
+                    "script": {
+                        "id": "33d956da-d127-4b1d-9dea-8c43ab7c0ef1",
+                        "type": "text/javascript",
+                        "exec": [
+                            ""
+                        ]
+                    }
+                },
+                {
+                    "listen": "test",
+                    "script": {
+                        "id": "2ae85850-1893-4a72-a73c-ea81943a7eb0",
+                        "type": "text/javascript",
+                        "exec": [
+                            ""
+                        ]
+                    }
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "apikey",
+        "apikey": [
+            {
+                "key": "value",
+                "value": "{{APIKey}}",
+                "type": "string"
+            },
+            {
+                "key": "key",
+                "value": "X-Api-Key",
+                "type": "string"
+            }
+        ]
+    },
+    "event": [
+        {
+            "listen": "prerequest",
+            "script": {
+                "id": "62b5aefd-337a-4b14-9c87-c07ebca1e778",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        },
+        {
+            "listen": "test",
+            "script": {
+                "id": "14eeac92-2899-4414-a284-52972aaf8021",
+                "type": "text/javascript",
+                "exec": [
+                    ""
+                ]
+            }
+        }
+    ],
+    "variable": [
+        {
+            "id": "efb1f7a3-b63c-4e4c-b686-5727056e06fd",
+            "key": "{{APIKey}}",
+            "value": ""
+        },
+        {
+            "id": "dbed907c-b222-405e-944e-6664e8644fa8",
+            "key": "{{subjectId}}",
+            "value": ""
+        },
+        {
+            "id": "6b4f7da6-6958-4716-a27a-743ba4ad4eac",
+            "key": "{{URL}}",
+            "value": ""
+        }
+    ]
+}
